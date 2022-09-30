@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data" action="/pill_result/">
+    <div class="col">
+        <div class="card shadow-sm" style="width: 18rem;">
+            <svg id='svg1' class="bd-placeholder-img card-img-top" width="50%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="25%" y="25%" fill="#eceeef" dy=".3em">이미지 미리보기</text></svg>
+            <img id='output'>
+            <div class="card-body">
+              <p class="card-text">이미지를 넣으세요</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <input type='file' name="file1" accept='image/*' onchange='openFile(event)'>
+                </div>
+                <small class="text-muted">JPG,PNG</small>
+              </div>
+            </div>
+        </div>
+    </div>
+        <div class="col">
+          <div class="card shadow-sm" style="width: 18rem;">
+            <svg id='svg2' class="bd-placeholder-img card-img-top" width="50%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: صورة مصغرة" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="25%" y="25%" fill="#eceeef" dy=".3em">이미지 미리보기</text></svg>
+            <img id='output2'>
+            <div class="card-body">
+              <p class="card-text">이미지를 넣으세요</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <input type='file' name="file2" accept='image/*' onchange='openFile1(event)'>
+                </div>
+                <small class="text-muted">JPG,PNG</small>
+              </div>
+            </div>
+          </div>
+        </div>
+    <div class="my-3 ml-3 text-start">
+        <button type="submit" class="btn btn-warning" onclick="window.location.href='/pill_result/'">검색</button>
+</div>
+</form>
+<script>
+  var openFile = function(event) {
+    var input = event.target;
+
+    var reader = new FileReader();
+    reader.onload = function(){
+      var dataURL = reader.result;
+      var output = document.getElementById('output');
+      document.getElementById('svg1').style.display = "none";
+      output.src = dataURL;
+    };
+    reader.readAsDataURL(input.files[0]);
+  };
+
+  var openFile1 = function(event) {
+    var input = event.target;
+
+    var reader = new FileReader();
+    reader.onload = function(){
+      var dataURL = reader.result;
+      var output = document.getElementById('output2');
+      document.getElementById('svg2').style.display = "none";
+      output.src = dataURL;
+    };
+    reader.readAsDataURL(input.files[0]);
+  };
+</script>
+{% endblock %}

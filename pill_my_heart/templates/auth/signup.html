@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+<div class="container my-3">
+    <h5 class="my-3 border-bottom pb-2">계정생성</h5>
+    <form method="post">
+      <!--csrf 토큰을 위해 표시-->
+        {{ form.csrf_token }}
+      <!--회원가입떄 발생할 수 있는 오류 표시-->
+        {% include "form_errors.html" %}
+        <div class="mb-3">
+            <label for="username">아이디</label>
+            <input type="text" class="form-control" name="username" id="username"
+                   value="{{ form.username.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="password1">비밀번호</label>
+            <input type="password" class="form-control" name="password1" id="password1"
+                   value="{{ form.password1.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="password2">비밀번호 확인</label>
+            <input type="password" class="form-control" name="password2" id="password2"
+                   value="{{ form.password2.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="email">이메일</label>
+            <input type="text" class="form-control" name="email" id="email"
+                   value="{{ form.email.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="birth_year">나이</label>
+            <input type="month" class="form-control" name="birth_year" id="birth_year"
+                   value="{{ form.birth_year.data or '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="gender">성별</label>
+            <select class="form-select" name="gender" aria-label="Default select example">
+                <option selected>성별을 선택해주세요</option>
+                <option value="1">남성</option>
+                <option value="2">여성</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="medical_nm">병력사항 1</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="medical_nm" value="당뇨">
+                <label class="form-check-label" for="inlineCheckbox1">당뇨</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="medical_nm" value="고혈압">
+                <label class="form-check-label" for="inlineCheckbox2">고혈압</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="medical_nm" value="저혈압">
+                <label class="form-check-label" for="inlineCheckbox3">저혈압</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="medical_nm" value="감기">
+                <label class="form-check-label" for="inlineCheckbox4">감기</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="medical_nm" value="골다공증">
+                <label class="form-check-label" for="inlineCheckbox5">골다공증</label>
+            </div>
+        </div>
+<!--        <div class="mb-3">-->
+<!--            <label for="medical_nm">병력사항 2</label>-->
+<!--            <input type="text" class="form-control" name="medical_nm" id="medical_nm"-->
+<!--                   value="{{ form.medical_nm.data or '' }}">-->
+<!--        </div>-->
+        <input type="hidden" class="form-control" name="re_dt" id="re_dt" value="2022-09-20 14:56:50">
+        <div class="mb-3">
+            <label for="medicine_nm">현재 복용하는 약</label>
+            <input type="text" class="form-control" name="medicine_nm" id="medicine_nm"
+                   value="{{ form.medicine_nm.data or '' }}">
+        </div>
+        <div class="my-3 text-start">
+            <button type="submit" class="btn btn-warning">생성하기</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

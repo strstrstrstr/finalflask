@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% block content %}
+<html>
+    <body>
+    {% if g.user %}
+    <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="print fw-bolder mb-1">{{pill_name}}</h1>
+                            <!-- Post meta content-->
+                            <div class="print text=muted fst-italic mb-2"></div>
+                            <!-- Post categories-->
+                            {% if site == '' %}
+                            <a class="badge bg-light">경기기간 중 도핑</a>
+                            {% elif site == '허용' %}
+                            <a class="badge bg-Secondary">경기기간 중 도핑</a>
+                            {% else %}
+                            <a class="badge bg-Danger">경기기간 중 도핑</a>
+                            {% endif %}
+                            <a class="badge bg-danger text-decoration-none link-light">경기기간 외 도핑</a>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4">복약 시 주의사항</p>
+                            <p class=" print fs-5 mb-4">{{pill_eat}}</p>
+                            <p class="fs-5 mb-4">주의사항</p>
+                            <p class=" print fs-5 mb-4">{{pill_Precautions}}</p>
+                        </section>
+                    </article>
+
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header">성분, 함량</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="print">{{pill_ingredient}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">첨가제</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="print">{{pill_additive}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">효능</div>
+                        <div class="card-body print">{{pill_efficacy}}</div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">저장방법</div>
+                        <div class="card-body print">{{pill_save}}</div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">용법</div>
+                        <div class="card-body print">{{pill_usage}}</div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">제형</div>
+                        <div class="card-body print">{{pill_shape}}</div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    {% else %}
+    <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="print fw-bolder mb-1">{{pilldetail.medicine_nm}}</h1>
+                            <!-- Post meta content-->
+                            <div class="print text=muted fst-italic mb-2"></div>
+                            <!-- Post categories-->
+                            {% if site == '' %}
+                            <a type="hidden" class="print">{{pill_doping_now}}</a>
+                            <a class="badge bg-Secondary">경기기간 중 도핑</a>
+                            {% elif site == '허용' %}
+                            <a type="hidden" class="print">{{pill_doping_now}}</a>
+                            <a class="badge bg-success">경기기간 중 도핑</a>
+                            {% else %}
+                            <a class="badge bg-Danger">경기기간 중 도핑</a>
+                            {% endif %}
+                            {% if site == '' %}
+                            <a type="hidden" class="print">{{pill_doping_outside}}</a>
+                            <a class="badge bg-Secondary text-decoration-none link-light">경기기간 외 도핑</a>
+                            {% elif site == '허용' %}
+                            <a type="hidden" class="print">{{pill_doping_outside}}</a>
+                            <a class="badge bg-success">경기기간 외 도핑</a>
+                            {% else %}
+                            <a class="badge bg-Danger">경기기간 외 도핑</a>
+                            {% endif %}
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4">복약 시 주의사항</p>
+                            <p class=" print fs-5 mb-4">{{pill_eat}}</p>
+                            <p class="fs-5 mb-4">주의사항</p>
+                            <p class=" print fs-5 mb-4">{{pill_Precautions}}</p>
+                        </section>
+                    </article>
+
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header">성분, 함량</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="print">{{pill_ingredient}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">첨가제</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="print">{{pill_additive}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">효능</div>
+                        <div class="card-body print">{{pill_efficacy}}</div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">저장방법</div>
+                        <div class="card-body print">{{pill_save}}</div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">용법</div>
+                        <div class="card-body print">{{pill_usage}}</div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">제형</div>
+                        <div class="card-body print">{{pill_shape}}</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+        <!-- Footer-->
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </div>
+    </body>
+{% endblock %}

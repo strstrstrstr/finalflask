@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+    navigator.geolocation.getCurrentPosition((position)=>{
+    console.log("현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.")
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    document.getElementById("latitude").innerHTML = latitude;
+    document.getElementById("longitude").innerHTML = longitude;
+    }
+    , (err)=>{console.log(err)
+});
+</script>
+<div class="container">
+    <div id="latitude"></div>
+    <div id="longitude"></div>
+
+    <div id="folium" style="width: 100%; height: 100%"></div>
+      <py-script output="folium">
+import folium
+import json
+import pandas as pd
+
+latitude = {{ latitude }}
+longitude = {{ longitude}}
+  </py-script>
+    <py-script>
+m = folium.Map(location=[latitude, longitude],
+               zoom_start=17,
+               width=750,
+               height=500
+              )
+folium.LayerControl().add_to(m)
+
+m
+      </py-script>
+</div>
+{% endblock %}
