@@ -11,7 +11,7 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="print fw-bolder mb-1">{{pill_name}}</h1>
+                            <h1 class="print fw-bolder mb-1">{{query.name}}</h1>
                             <!-- Post meta content-->
                             <div class="print text=muted fst-italic mb-2"></div>
                             <!-- Post categories-->
@@ -29,9 +29,9 @@
                         <!-- Post content-->
                         <section class="mb-5">
                             <p class="fs-5 mb-4">복약 시 주의사항</p>
-                            <p class=" print fs-5 mb-4">{{pill_eat}}</p>
+                            <p class=" print fs-5 mb-4">{{query.eat}}</p>
                             <p class="fs-5 mb-4">주의사항</p>
-                            <p class=" print fs-5 mb-4">{{pill_Precautions}}</p>
+                            <p class=" print fs-5 mb-4">{{query.Precautions}}</p>
                         </section>
                     </article>
 
@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li class="print">{{pill_ingredient}}</li>
+                                        <li class="print">{{query.ingredient}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li class="print">{{pill_additive}}</li>
+                                        <li class="print">{{query.additive}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -66,19 +66,19 @@
                     <!-- Side widget-->
                     <div class="card mb-4">
                         <div class="card-header">효능</div>
-                        <div class="card-body print">{{pill_efficacy}}</div>
+                        <div class="card-body print">{{query.efficacy}}</div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">저장방법</div>
-                        <div class="card-body print">{{pill_save}}</div>
+                        <div class="card-body print">{{query.save}}</div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">용법</div>
-                        <div class="card-body print">{{pill_usage}}</div>
+                        <div class="card-body print">{{query.usage}}</div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">제형</div>
-                        <div class="card-body print">{{pill_shape}}</div>
+                        <div class="card-body print">{{query.shape}}</div>
                     </div>
 
 
@@ -94,24 +94,24 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="print fw-bolder mb-1">{{pilldetail.medicine_nm}}</h1>
+                            <h1 class="print fw-bolder mb-1">{{query.medicine_nm}}</h1>
                             <!-- Post meta content-->
                             <div class="print text=muted fst-italic mb-2"></div>
                             <!-- Post categories-->
                             {% if site == '' %}
-                            <a type="hidden" class="print">{{pill_doping_now}}</a>
+                            <a type="hidden" class="print">{{query.doping_now}}</a>
                             <a class="badge bg-Secondary">경기기간 중 도핑</a>
                             {% elif site == '허용' %}
-                            <a type="hidden" class="print">{{pill_doping_now}}</a>
+                            <a type="hidden" class="print">{{query.doping_now}}</a>
                             <a class="badge bg-success">경기기간 중 도핑</a>
                             {% else %}
                             <a class="badge bg-Danger">경기기간 중 도핑</a>
                             {% endif %}
                             {% if site == '' %}
-                            <a type="hidden" class="print">{{pill_doping_outside}}</a>
+                            <a type="hidden" class="print">{{query.doping_outside}}</a>
                             <a class="badge bg-Secondary text-decoration-none link-light">경기기간 외 도핑</a>
                             {% elif site == '허용' %}
-                            <a type="hidden" class="print">{{pill_doping_outside}}</a>
+                            <a type="hidden" class="print">{{query.doping_outside}}</a>
                             <a class="badge bg-success">경기기간 외 도핑</a>
                             {% else %}
                             <a class="badge bg-Danger">경기기간 외 도핑</a>
@@ -122,9 +122,9 @@
                         <!-- Post content-->
                         <section class="mb-5">
                             <p class="fs-5 mb-4">복약 시 주의사항</p>
-                            <p class=" print fs-5 mb-4">{{pill_eat}}</p>
+                            <p class=" print fs-5 mb-4">{{query.eat}}</p>
                             <p class="fs-5 mb-4">주의사항</p>
-                            <p class=" print fs-5 mb-4">{{pill_Precautions}}</p>
+                            <p class=" print fs-5 mb-4">{{query.Precautions}}</p>
                         </section>
                     </article>
 
@@ -137,7 +137,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li class="print">{{pill_ingredient}}</li>
+                                        <li class="print">{{query.ingredient}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li class="print">{{pill_additive}}</li>
+                                        <li class="print">{{query.additive}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -159,19 +159,19 @@
                     <!-- Side widget-->
                     <div class="card mb-4">
                         <div class="card-header">효능</div>
-                        <div class="card-body print">{{pill_efficacy}}</div>
+                        <div class="card-body print">{{query.efficacy}}</div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">저장방법</div>
-                        <div class="card-body print">{{pill_save}}</div>
+                        <div class="card-body print">{{query.save}}</div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">용법</div>
-                        <div class="card-body print">{{pill_usage}}</div>
+                        <div class="card-body print">{{query.usage}}</div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">제형</div>
-                        <div class="card-body print">{{pill_shape}}</div>
+                        <div class="card-body print">{{query.shape}}</div>
                     </div>
 
                 </div>

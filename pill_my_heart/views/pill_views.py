@@ -40,45 +40,15 @@ def result():
     # side1= {'PRINT':'BSS','DRUG_SHAPE':result_front['DRUG_SHAPE'],'COLOR_CLASS':result_front['COLOR_CLASS'],'LINE':result_front['LINE'],'SHAPE':result_front['SHAPE_CODE'],'MARK_CODE':'Default'}
     # side2= {'PRINT':'Default','DRUG_SHAPE':result_front['DRUG_SHAPE'],'COLOR_CLASS':result_front['COLOR_CLASS'],'LINE':result_front['LINE'],'SHAPE':result_front['SHAPE_CODE'],'MARK_CODE':'Default'}
     # pillname=pillname_filter(side1, side2)[0].medicine_nm
-    pilldetail=pilldetail_filter("아네모정")
-    pill_name = pilldetail.medicine_nm
-    pill_ingredient = pilldetail.ingredient
-    pill_additive = pilldetail.additive
-    pill_doping_now = pilldetail.doping_now
-    pill_doping_outside = pilldetail.doping_outside
-    pill_safety = pilldetail.safety
-    pill_save = pilldetail.save
-    pill_efficacy = pilldetail.efficacy
-    pill_usage = pilldetail.usage
-    pill_Precautions = pilldetail.Precautions
-    pill_eat = pilldetail.eat
-    pill_shape = pilldetail.shape
-    pill_same = pilldetail.same
-    pill_food_Interaction = pilldetail.food_Interaction
-    pill_medicine_Interaction = pilldetail.medicine_Interaction
+    queryset = Medicine.query.filter(Medicine.name.like('%아네모정%'))
 
-
-    return render_template('pill/pill_result.html', pill_name = pill_name, pill_ingredient = pill_ingredient, pill_additive = pill_additive, pill_doping_now=pill_doping_now, pill_doping_outside=pill_doping_outside, pill_safety=pill_safety, pill_same=pill_same, pill_shape=pill_shape, pill_eat=pill_eat, pill_Precautions=pill_Precautions, pill_usage=pill_usage, pill_efficacy=pill_efficacy, pill_save=pill_save, pill_food_Interaction=pill_food_Interaction, pill_medicine_Interaction=pill_medicine_Interaction)
+    return render_template('pill/pill_not_result.html', queryset=queryset)
 
 @bp.route('/pill_warning/', methods=('GET', 'POST'))
 def warning():
-    pilldetail = pilldetail_filter("아네모정")
-    pill_name = pilldetail.medicine_nm
-    pill_ingredient = pilldetail.ingredient
-    pill_additive = pilldetail.additive
-    pill_doping_now = pilldetail.doping_now
-    pill_doping_outside = pilldetail.doping_outside
-    pill_safety = pilldetail.safety
-    pill_save = pilldetail.save
-    pill_efficacy = pilldetail.efficacy
-    pill_usage = pilldetail.usage
-    pill_Precautions = pilldetail.Precautions
-    pill_eat = pilldetail.eat
-    pill_shape = pilldetail.shape
-    pill_same = pilldetail.same
-    pill_food_Interaction = pilldetail.food_Interaction
-    pill_medicine_Interaction = pilldetail.medicine_Interaction
-    return  render_template('pill/pill_warning.html', pill_Precautions=pill_Precautions, pill_eat=pill_eat, pill_medicine_Interaction=pill_medicine_Interaction, pill_same=pill_same)
+
+    queryset = Medicine.query.filter(Medicine.name.like('%아네모정%')).all()[0]
+    return  render_template('pill/pill_warning.html', queryset=queryset)
 
 @bp.route('/pill_not_result/', methods=('GET', 'POST'))
 def not_result():
@@ -88,32 +58,21 @@ def not_result():
 @bp.route('/pill_name_search', methods=["POST"])
 def pill_name_search():
     pillname = request.form["id"]
-    pilldetail = pilldetail_filter(pillname)
-    if not pilldetail == None:
-        pill_name = pilldetail.medicine_nm
-        pill_ingredient = pilldetail.ingredient
-        pill_additive = pilldetail.additive
-        pill_doping_now = pilldetail.doping_now
-        pill_doping_outside = pilldetail.doping_outside
-        pill_safety = pilldetail.safety
-        pill_save = pilldetail.save
-        pill_efficacy = pilldetail.efficacy
-        pill_usage = pilldetail.usage
-        pill_Precautions = pilldetail.Precautions
-        pill_eat = pilldetail.eat
-        pill_shape = pilldetail.shape
-        pill_same = pilldetail.same
-        pill_food_Interaction = pilldetail.food_Interaction
-        pill_medicine_Interaction = pilldetail.medicine_Interaction
+    queryset=Medicine.query.filter(Medicine.name.like('%'+pillname+'%')).all()
+    for query in queryset:
+        if not query == None:
+            return render_template('pill/pill_not_result.html', queryset=queryset)
+        elif pilldetail == '':
+            flash('검색결과가 없습니다.')
+            return render_template('main.html')
+        else:
+            flash('검색결과가 없습니다.')
+            return render_template('main.html')
 
-
-        return render_template('pill/pill_result.html', pill_name = pill_name, pill_ingredient = pill_ingredient, pill_additive = pill_additive, pill_doping_now=pill_doping_now, pill_doping_outside=pill_doping_outside, pill_safety=pill_safety, pill_same=pill_same, pill_shape=pill_shape, pill_eat=pill_eat, pill_Precautions=pill_Precautions, pill_usage=pill_usage, pill_efficacy=pill_efficacy, pill_save=pill_save, pill_food_Interaction=pill_food_Interaction, pill_medicine_Interaction=pill_medicine_Interaction)
-    elif pilldetail == '':
-        flash('검색결과가 없습니다.')
-        return render_template('main.html')
-    else:
-        flash('검색결과가 없습니다.')
-        return render_template('main.html')
+@bp.route('/detail/<int:query_id>/')
+def pill_id_search(query_id):
+    query=Medicine.query.filter(Medicine.seq==query_id).all()[0]
+    return render_template('pill/pill_result.html', query=query)
 
 
 

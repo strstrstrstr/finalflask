@@ -79,15 +79,15 @@
                            <a class="nav-link text-white" href="{{ url_for('pill_search.pill_search') }}">약 정보 검색</a>
                        </li>
                    </ul>
-                    <form method="POST" class="w-100 me-3" action= "/pill_name_search">
-                        <input class="form-control-lg me-2 input_text" type="text" id="id" placeholder="검색" name="id" aria-label="Search">
-                        <button class="btn btn-outline-warning" type="submit">
-                            <span>검색</span>
-                            <span class="ico_search_submit"></span>
-                        </button>
-                    </form>
-            </div>
+                <form method="POST" class="w-100 me-3" action= "/pill_name_search">
+                    <input class="form-control-lg me-2 input_text" type="text" id="id" placeholder="검색" name="id" aria-label="Search">
+                    <button class="btn btn-outline-warning" type="submit">
+                        <span>검색</span>
+                        <span class="ico_search_submit"></span>
+                    </button>
+                </form>
                 {% endif %}
+            </div>
     </div>
     </header>
 </nav>
