@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+        - folium
+        - pandas
+        - xmltodict
+    </py-env>
+</head>
+<body>
+
+
+<script>
+    var latitude = 0;
+    var longitude = 0;
+
+    navigator.geolocation.getCurrentPosition((position)=>{
+    console.log("현재 사용자는 위도 " + position.coords.latitude + ", 경도 " + position.coords.longitude + "에 위치하고 있습니다.")
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    }
+    , (err)=>{console.log(err)
+});
+
+</script>
+
+<div class="container">
+
+    <div id="folium" style="width: 100%; height: 100%"></div>
+    <py-script output="folium">
+        import asyncio
+        import json
+        import pandas as pd
+        import os
+        from pyodide import to_js
+        import js
+        from js import latitude,longitude
+        from js import XMLHttpRequest
+        import xmltodict
+        from datetime import datetime, date
+        import folium
+
+        request_params = {
+            "method": "POST",
+            "body": json.dumps({ "some" : "json" }),
+            "credentials": "same-origin",
+            "headers": { "Content-Type": "application/json", "Authorization": "KakaoAK d3dfb8579abd310c9ba33516d6d2b5e9" }
+        }
+        url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x="+str(longitude)+"&y="+str(latitude)
+        api_json = await js.fetch(url, to_js(request_params, dict_converter=js.Object.fromEntries))
+        res = await api_json.json()
+        res = js.JSON.stringify(res)
+        res = json.loads(res)
+        si = res['documents'][0]['region_1depth_name']
+        gu = res['documents'][0]['region_2depth_name']
+
+        req = XMLHttpRequest.new()
+        req.open("GET", "http://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire?serviceKey=gcYW7byNbel65zggdTXWj%2FIkY4p79dKvVSPN6bW6vxrk7RWlRBlNLw6T3LoBSLNgIkUT%2F6brhujXDs3GyoADlg%3D%3D&Q0="+si+"&Q1="+gu+"&QT=1&numOfRows=100", False)
+        req.send(None)
+        output = str(req.response)
+
+        data=xmltodict.parse(output)
+        data_list = data['response']['body']['items']['item']
+        data_name = []
+        date_now=datetime.today()
+        hour,minute,weekday=date_now.hour,date_now.minute,date_now.weekday()+1
+        time1 = int(str(hour)+str(minute))
+        weekday = str(weekday)
+        m = folium.Map(location=[latitude, longitude],
+               zoom_start=15,
+               width=750,
+               height=500
+              )
+        data_list.append({'dutyAddr': '서울특별시 양천구 월정로 50, 209호 (신월동, 청솔아파트)', 'dutyMapimg': '청솔아파트상가2층207호', 'dutyName': '2층소망약국', 'dutyTel1': '02-2608-8096', 'dutyTime1c': '1830', 'dutyTime1s': '0900', 'dutyTime2c': '1830', 'dutyTime2s': '0900', 'dutyTime3c': '1830', 'dutyTime3s': '1100', 'dutyTime4c': '1830', 'dutyTime4s': '0900', 'dutyTime5c': '1830', 'dutyTime5s': '0900', 'dutyTime6c': '1300', 'dutyTime6s': '0900', 'hpid': 'C1102165', 'postCdn1': '079', 'postCdn2': '36', 'rnum': '1', 'wgs84Lat': '37.52423862852762', 'wgs84Lon': '126.84222183198969'})
+        for temp in data_list:
+            try :
+                if (int(temp['dutyTime'+weekday+'s']) < time1) and (time1 < int(temp['dutyTime'+weekday+'c'])):
+                    folium.Marker([temp['wgs84Lat'], temp['wgs84Lon']], popup=folium.Popup(temp['dutyName'], min_width=150, max_width=150)).add_to(m)
+                else:
+                    folium.Marker([temp['wgs84Lat'], temp['wgs84Lon']], popup=folium.Popup(temp['dutyName'], min_width=150, max_width=150), icon=folium.Icon(color='red', icon='info-sign')).add_to(m)
+            except:
+                folium.Marker([temp['wgs84Lat'], temp['wgs84Lon']], popup=folium.Popup(temp['dutyName'], min_width=150, max_width=150), icon=folium.Icon(color='red', icon='info-sign')).add_to(m)
+        folium.Marker([latitude, longitude],popup=folium.Popup("내 위치", min_width=150, max_width=150),icon=folium.Icon(color='green', icon='info-sign')).add_to(m)
+        folium.Circle([latitude,longitude],popup=folium.Popup("내 위치 1km 반경", min_width=150, max_width=150),radius=1000,fill='blue').add_to(m)
+        m
+    </py-script>
+</div>
+
+</body>
+</html>
